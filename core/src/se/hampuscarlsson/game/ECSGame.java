@@ -1,20 +1,12 @@
 package se.hampuscarlsson.game;
 
 import com.badlogic.ashley.core.Engine;
-import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import se.hampuscarlsson.game.components.PhysicsComponent;
-import se.hampuscarlsson.game.components.PlayerInputComponent;
-import se.hampuscarlsson.game.components.TextureComponent;
-import se.hampuscarlsson.game.components.TransformComponent;
-import se.hampuscarlsson.game.systems.EntityFactory;
 import se.hampuscarlsson.game.systems.PhysicsSystem;
 import se.hampuscarlsson.game.systems.PlayerInputSystem;
 import se.hampuscarlsson.game.systems.RenderSystem;
@@ -48,6 +40,9 @@ public class ECSGame extends ApplicationAdapter {
 
 		// Create entity
 		engine.addEntity(EntityFactory.createPlayer(img, world));
+
+		//Create solid
+		engine.addEntity(EntityFactory.createSolid(img, world, new Vector2(50,0)));
 
 
 	}
