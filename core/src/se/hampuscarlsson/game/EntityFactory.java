@@ -59,13 +59,9 @@ public class EntityFactory {
 		bodyDef.position.set(transformComponent.position.cpy());
 		physicsComponent.body = world.createBody(bodyDef);
 		PolygonShape rectangle = new PolygonShape();
-		rectangle.set(new Vector2[]{new Vector2(0, 0), new Vector2(20,0), new Vector2(20,20), new Vector2(0, 20)});
-		FixtureDef fixtureDef = new FixtureDef();
-		fixtureDef.shape = rectangle;
-		fixtureDef.density = 2f;
-		fixtureDef.friction = 0.4f;
-		fixtureDef.restitution = 0.6f; // Make it bounce a little bit
-//		Fixture fixture = physicsComponent.body.createFixture(fixtureDef);
+		rectangle.setAsBox(2000, 10.0f);
+		// Create a fixture from our polygon shape and add it to our ground body
+		physicsComponent.body.createFixture(rectangle, 0.0f);
 		rectangle.dispose();
 		entity.add(physicsComponent);
 
