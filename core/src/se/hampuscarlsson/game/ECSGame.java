@@ -11,9 +11,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import se.hampuscarlsson.game.components.PhysicsComponent;
+import se.hampuscarlsson.game.components.PlayerInputComponent;
 import se.hampuscarlsson.game.components.TextureComponent;
 import se.hampuscarlsson.game.components.TransformComponent;
 import se.hampuscarlsson.game.systems.PhysicsSystem;
+import se.hampuscarlsson.game.systems.PlayerInputSystem;
 import se.hampuscarlsson.game.systems.RenderSystem;
 
 public class ECSGame extends ApplicationAdapter {
@@ -36,6 +38,11 @@ public class ECSGame extends ApplicationAdapter {
 		// Create PhysicsSystem
 		PhysicsSystem physicsSystem = new PhysicsSystem(world);
 		engine.addSystem(physicsSystem);
+
+		// Create PlayerInputSystem
+		PlayerInputSystem playerInputSystem = new PlayerInputSystem();
+		Gdx.input.setInputProcessor(playerInputSystem);
+		engine.addSystem(playerInputSystem);
 
 
 		// Create entity
@@ -65,7 +72,11 @@ public class ECSGame extends ApplicationAdapter {
 		circle.dispose();
 		entity.add(physicsComponent);
 
+		entity.add(new PlayerInputComponent());
+
 		engine.addEntity(entity);
+
+
 	}
 
 	@Override
