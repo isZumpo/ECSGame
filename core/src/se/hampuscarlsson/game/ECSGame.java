@@ -14,6 +14,7 @@ import se.hampuscarlsson.game.components.PhysicsComponent;
 import se.hampuscarlsson.game.components.PlayerInputComponent;
 import se.hampuscarlsson.game.components.TextureComponent;
 import se.hampuscarlsson.game.components.TransformComponent;
+import se.hampuscarlsson.game.systems.EntityFactory;
 import se.hampuscarlsson.game.systems.PhysicsSystem;
 import se.hampuscarlsson.game.systems.PlayerInputSystem;
 import se.hampuscarlsson.game.systems.RenderSystem;
@@ -46,35 +47,7 @@ public class ECSGame extends ApplicationAdapter {
 
 
 		// Create entity
-		Entity entity = new Entity();
-
-		TransformComponent transformComponent = new TransformComponent();
-		transformComponent.position.set(50, 50);
-		entity.add(transformComponent);
-
-		TextureComponent textureComponent = new TextureComponent();
-		textureComponent.texture = img;
-		entity.add(textureComponent);
-
-		PhysicsComponent physicsComponent = new PhysicsComponent();
-		BodyDef bodyDef = new BodyDef();
-		bodyDef.type = BodyDef.BodyType.DynamicBody;
-		bodyDef.position.set(transformComponent.position.cpy());
-		physicsComponent.body = world.createBody(bodyDef);
-		CircleShape circle = new CircleShape();
-		circle.setRadius(6f);
-		FixtureDef fixtureDef = new FixtureDef();
-		fixtureDef.shape = circle;
-		fixtureDef.density = 2f;
-		fixtureDef.friction = 0.4f;
-		fixtureDef.restitution = 0.6f; // Make it bounce a little bit
-//		Fixture fixture = physicsComponent.body.createFixture(fixtureDef);
-		circle.dispose();
-		entity.add(physicsComponent);
-
-		entity.add(new PlayerInputComponent());
-
-		engine.addEntity(entity);
+		engine.addEntity(EntityFactory.createPlayer(img, world));
 
 
 	}
@@ -83,14 +56,6 @@ public class ECSGame extends ApplicationAdapter {
 	public void render () {
 		// Update ECS engine
 		engine.update(Gdx.graphics.getDeltaTime());
-
-
-//		Gdx.gl.glClearColor(1, 0, 0, 1);
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//		batch.begin();
-//		batch.draw(img, 0, 0);
-//		batch.end();
-
 	}
 	
 	@Override

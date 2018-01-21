@@ -35,7 +35,6 @@ public class PlayerInputSystem extends IteratingSystem implements InputProcessor
 	public boolean keyDown(int keycode) {
 		switch (keycode) {
 			case(Input.Keys.LEFT):
-				System.out.println("asdasdada");
 				leftIsPressed = true;
 				break;
 			case(Input.Keys.RIGHT):
