@@ -10,11 +10,12 @@ import se.hampuscarlsson.game.components.TextureComponent;
 import se.hampuscarlsson.game.components.TransformComponent;
 
 public class EntityFactory {
-	public static Entity createPlayer(Texture img, World world) {
+	public static Entity createPlayer(Texture img, World world, Vector2 position, Vector2 size) {
 		Entity entity = new Entity();
 
 		TransformComponent transformComponent = new TransformComponent();
-		transformComponent.position.set(50, 50);
+		transformComponent.position.set(position);
+		transformComponent.size.set(size);
 		entity.add(transformComponent);
 
 		TextureComponent textureComponent = new TextureComponent();
@@ -27,7 +28,7 @@ public class EntityFactory {
 		bodyDef.position.set(transformComponent.position.cpy());
 		physicsComponent.body = world.createBody(bodyDef);
 		CircleShape circle = new CircleShape();
-		circle.setRadius(6f);
+		circle.setRadius(size.x / 2);
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = circle;
 		fixtureDef.density = 2f;
@@ -42,11 +43,12 @@ public class EntityFactory {
 		return entity;
 	}
 
-	public static Entity createSolid(Texture img, World world, Vector2 position) {
+	public static Entity createSolid(Texture img, World world, Vector2 position, Vector2 size) {
 		Entity entity = new Entity();
 
 		TransformComponent transformComponent = new TransformComponent();
 		transformComponent.position.set(position);
+		transformComponent.size.set(size);
 		entity.add(transformComponent);
 
 		TextureComponent textureComponent = new TextureComponent();
@@ -59,7 +61,7 @@ public class EntityFactory {
 		bodyDef.position.set(transformComponent.position.cpy());
 		physicsComponent.body = world.createBody(bodyDef);
 		PolygonShape rectangle = new PolygonShape();
-		rectangle.setAsBox(2000, 10.0f);
+		rectangle.setAsBox(size.x, size.y);
 		// Create a fixture from our polygon shape and add it to our ground body
 		physicsComponent.body.createFixture(rectangle, 0.0f);
 		rectangle.dispose();

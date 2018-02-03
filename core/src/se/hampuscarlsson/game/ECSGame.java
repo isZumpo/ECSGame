@@ -14,6 +14,7 @@ import se.hampuscarlsson.game.systems.RenderSystem;
 public class ECSGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
+	Texture brick;
 	Engine engine;
 	World world;
 	
@@ -21,6 +22,7 @@ public class ECSGame extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+		brick = new Texture("textures/brick.png");
 		engine = new Engine();
 		world = new World(new Vector2(0, -10), true);
 
@@ -37,12 +39,11 @@ public class ECSGame extends ApplicationAdapter {
 		Gdx.input.setInputProcessor(playerInputSystem);
 		engine.addSystem(playerInputSystem);
 
-
 		// Create entity
-		engine.addEntity(EntityFactory.createPlayer(img, world));
+		engine.addEntity(EntityFactory.createPlayer(img, world, new Vector2(50, 50), new Vector2(64,64)));
 
 		//Create solid
-		engine.addEntity(EntityFactory.createSolid(img, world, new Vector2(50,10)));
+		engine.addEntity(EntityFactory.createSolid(brick, world, new Vector2(50,10), new Vector2(128, 64)));
 
 
 	}

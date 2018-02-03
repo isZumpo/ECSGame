@@ -37,7 +37,7 @@ public class RenderSystem extends IteratingSystem {
 		for (Entity entity : renderQueue) {
 			TextureComponent textureComponent = textureMapper.get(entity);
 			TransformComponent transformComponent = transformMapper.get(entity);
-			batch.draw(textureComponent.texture, transformComponent.position.x, transformComponent.position.y);
+			batch.draw(textureComponent.texture, transformComponent.position.x, transformComponent.position.y, transformComponent.size.x, transformComponent.size.y);
 		}
 		batch.end();
 		renderQueue.clear();
