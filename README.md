@@ -1,7 +1,7 @@
 # Backstory
-A while ago a group of friends and me tried out to create a game using java and libgdx. However following a object oriented aproach for structuring the code eventually caught up on us. It ended up with a sort of messy code.
+A while ago a group of friends and I tried to create a game using java and libgdx. However following the object oriented aproach for structuring our code eventually caught up on us. It ended up with a sort of messy code.
 # Solution
-It seems like for more modern some of the object oriented thinking is thrown away and instead a entity-component-system(ECS) is used. Instead of creating multiple objects depending on eachother using inheritance a component system is used which allows easy building and changing of functionality. A simple container called a entity holds a list of containers and then utilizing a sort of database systems can query for entities with certain components and do logical things with them.
+It seems like for more modern game some of the object oriented thinking is thrown away and replaced with a entity-component-system(ECS). Instead of creating multiple objects depending on eachother using inheritance a component system is used which allows easy construction and changing of game functionality. A simple container called a entity holds a list of components and then utilizing a sort of database systems can query for entities with certain components and do logical things with them.
 * Entity - Container
 * Component - Data
 * System - Logic
