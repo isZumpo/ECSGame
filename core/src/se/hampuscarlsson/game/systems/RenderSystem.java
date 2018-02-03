@@ -6,6 +6,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import se.hampuscarlsson.game.components.TextureComponent;
 import se.hampuscarlsson.game.components.TransformComponent;
@@ -16,11 +17,22 @@ public class RenderSystem extends IteratingSystem {
 	private ArrayList<Entity> renderQueue = new ArrayList<>();
 	private SpriteBatch batch;
 	private ComponentMapper<TransformComponent> transformMapper = ComponentMapper.getFor(TransformComponent.class);
-	private ComponentMapper<TextureComponent> textureMapper = ComponentMapper.getFor(TextureComponent.class);;
+	private ComponentMapper<TextureComponent> textureMapper = ComponentMapper.getFor(TextureComponent.class);
+	private OrthographicCamera camera;
 
-	public RenderSystem(SpriteBatch batch) {
+	public RenderSystem() {
 		super(Family.all(TransformComponent.class, TextureComponent.class).get());
-		this.batch = batch;
+		float w = Gdx.graphics.getWidth();
+		float h = Gdx.graphics.getHeight();
+
+		// Constructs a new OrthographicCamera, using the given viewport width and height
+		// Height is multiplied by aspect ratio.
+		camera = new OrthographicCamera(1000, 1000 * (h / w));
+
+		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+		camera.update();
+
+		this.batch = new SpriteBatch();
 	}
 
 	@Override
@@ -31,8 +43,11 @@ public class RenderSystem extends IteratingSystem {
 	@Override
 	public void update(float deltaTime) {
 		super.update(deltaTime);
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 		batch.begin();
 		for (Entity entity : renderQueue) {
 			TextureComponent textureComponent = textureMapper.get(entity);

@@ -27,7 +27,7 @@ public class ECSGame extends ApplicationAdapter {
 		world = new World(new Vector2(0, -10), true);
 
 		// Create RenderSystem
-		RenderSystem renderSystem = new RenderSystem(batch);
+		RenderSystem renderSystem = new RenderSystem();
 		engine.addSystem(renderSystem);
 
 		// Create PhysicsSystem
