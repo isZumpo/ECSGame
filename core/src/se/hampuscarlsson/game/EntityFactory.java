@@ -27,15 +27,15 @@ public class EntityFactory {
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
 		bodyDef.position.set(transformComponent.position.cpy());
 		physicsComponent.body = world.createBody(bodyDef);
-		CircleShape circle = new CircleShape();
-		circle.setRadius(size.x / 2);
+		PolygonShape rectangle = new PolygonShape();
+		rectangle.setAsBox(size.x/2, size.y/2, size.scl(0.5f), 0);
 		FixtureDef fixtureDef = new FixtureDef();
-		fixtureDef.shape = circle;
-		fixtureDef.density = 2f;
+		fixtureDef.shape = rectangle;
+		fixtureDef.density = 0.1f;
 		fixtureDef.friction = 0.4f;
 		fixtureDef.restitution = 0.6f; // Make it bounce a little bit
-//		Fixture fixture = physicsComponent.body.createFixture(fixtureDef);
-		circle.dispose();
+		Fixture fixture = physicsComponent.body.createFixture(fixtureDef);
+		rectangle.dispose();
 		entity.add(physicsComponent);
 
 		entity.add(new PlayerInputComponent());
@@ -61,7 +61,7 @@ public class EntityFactory {
 		bodyDef.position.set(transformComponent.position.cpy());
 		physicsComponent.body = world.createBody(bodyDef);
 		PolygonShape rectangle = new PolygonShape();
-		rectangle.setAsBox(size.x, size.y);
+		rectangle.setAsBox(size.x/2, size.y/2, size.scl(0.5f), 0);
 		// Create a fixture from our polygon shape and add it to our ground body
 		physicsComponent.body.createFixture(rectangle, 0.0f);
 		rectangle.dispose();

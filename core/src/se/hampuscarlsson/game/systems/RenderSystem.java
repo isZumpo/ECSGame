@@ -8,6 +8,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import se.hampuscarlsson.game.WorldManager;
 import se.hampuscarlsson.game.components.TextureComponent;
 import se.hampuscarlsson.game.components.TransformComponent;
 
@@ -19,6 +21,9 @@ public class RenderSystem extends IteratingSystem {
 	private ComponentMapper<TransformComponent> transformMapper = ComponentMapper.getFor(TransformComponent.class);
 	private ComponentMapper<TextureComponent> textureMapper = ComponentMapper.getFor(TextureComponent.class);
 	private OrthographicCamera camera;
+
+	private final boolean debug = true;
+	Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 
 	public RenderSystem() {
 		super(Family.all(TransformComponent.class, TextureComponent.class).get());
@@ -48,6 +53,8 @@ public class RenderSystem extends IteratingSystem {
 		batch.setProjectionMatrix(camera.combined);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
+
 		batch.begin();
 		for (Entity entity : renderQueue) {
 			TextureComponent textureComponent = textureMapper.get(entity);
@@ -55,6 +62,9 @@ public class RenderSystem extends IteratingSystem {
 			batch.draw(textureComponent.texture, transformComponent.position.x, transformComponent.position.y, transformComponent.size.x, transformComponent.size.y);
 		}
 		batch.end();
+		if(debug) {
+			debugRenderer.render(WorldManager.world, camera.combined);
+		}
 		renderQueue.clear();
 	}
 }

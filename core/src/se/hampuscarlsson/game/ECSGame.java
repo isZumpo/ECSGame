@@ -24,7 +24,7 @@ public class ECSGame extends ApplicationAdapter {
 		img = new Texture("badlogic.jpg");
 		brick = new Texture("textures/brick.png");
 		engine = new Engine();
-		world = new World(new Vector2(0, -10), true);
+		world = WorldManager.world;
 
 		// Create RenderSystem
 		RenderSystem renderSystem = new RenderSystem();
@@ -40,10 +40,10 @@ public class ECSGame extends ApplicationAdapter {
 		engine.addSystem(playerInputSystem);
 
 		// Create entity
-		engine.addEntity(EntityFactory.createPlayer(img, world, new Vector2(50, 50), new Vector2(64,64)));
+		engine.addEntity(EntityFactory.createPlayer(img, world, new Vector2(100, 300), new Vector2(64,64)));
 
 		//Create solid
-		engine.addEntity(EntityFactory.createSolid(brick, world, new Vector2(50,10), new Vector2(128, 64)));
+		engine.addEntity(EntityFactory.createSolid(brick, world, new Vector2(100,150), new Vector2(128, 64)));
 
 
 	}
