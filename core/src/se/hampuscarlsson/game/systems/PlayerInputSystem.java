@@ -22,10 +22,10 @@ public class PlayerInputSystem extends IteratingSystem implements InputProcessor
 	public void processEntity(Entity entity, float deltaTime) {
 		float force = 0;
 		if(leftIsPressed) {
-			force -= 2000;
+			force -= 20;
 		}
 		if(rightIsPressed) {
-			force += 2000;
+			force += 20;
 		}
 
 		physicsMapper.get(entity).body.applyForceToCenter(force,0,true);

@@ -40,10 +40,10 @@ public class ECSGame extends ApplicationAdapter {
 		engine.addSystem(playerInputSystem);
 
 		// Create entity
-		engine.addEntity(EntityFactory.createPlayer(img, world, new Vector2(100, 300), new Vector2(64,64)));
+		engine.addEntity(EntityFactory.createPlayer(img, world, new Vector2(0, 3), new Vector2(0.8f,2f)));
 
 		//Create solid
-		engine.addEntity(EntityFactory.createSolid(brick, world, new Vector2(100,150), new Vector2(128, 64)));
+		engine.addEntity(EntityFactory.createSolid(brick, world, new Vector2(0,1), new Vector2(40f, 1f)));
 
 
 	}

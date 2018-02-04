@@ -32,7 +32,7 @@ public class EntityFactory {
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = rectangle;
 		fixtureDef.density = 0.1f;
-		fixtureDef.friction = 0.4f;
+		fixtureDef.friction = 0.5f;
 		fixtureDef.restitution = 0.6f; // Make it bounce a little bit
 		Fixture fixture = physicsComponent.body.createFixture(fixtureDef);
 		rectangle.dispose();
@@ -63,7 +63,11 @@ public class EntityFactory {
 		PolygonShape rectangle = new PolygonShape();
 		rectangle.setAsBox(size.x/2, size.y/2, size.scl(0.5f), 0);
 		// Create a fixture from our polygon shape and add it to our ground body
-		physicsComponent.body.createFixture(rectangle, 0.0f);
+		FixtureDef fixtureDef = new FixtureDef();
+		fixtureDef.shape = rectangle;
+		fixtureDef.density = 0.1f;
+		fixtureDef.friction = 0.5f;
+		physicsComponent.body.createFixture(fixtureDef);
 		rectangle.dispose();
 		entity.add(physicsComponent);
 
