@@ -22,7 +22,7 @@ public class RenderSystem extends IteratingSystem {
 	private ComponentMapper<TextureComponent> textureMapper = ComponentMapper.getFor(TextureComponent.class);
 	private OrthographicCamera camera;
 
-	private final boolean debug = true;
+	private final boolean debug = false;
 	Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
 
 	public RenderSystem() {
@@ -52,11 +52,13 @@ public class RenderSystem extends IteratingSystem {
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClearColor(135/255f, 206/255f, 235/255f, 1);
 
 
 
 		batch.begin();
 		for (Entity entity : renderQueue) {
+
 			TextureComponent textureComponent = textureMapper.get(entity);
 			TransformComponent transformComponent = transformMapper.get(entity);
 			batch.draw(textureComponent.texture, transformComponent.position.x, transformComponent.position.y, transformComponent.size.x, transformComponent.size.y);
