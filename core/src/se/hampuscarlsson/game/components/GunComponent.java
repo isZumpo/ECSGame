@@ -8,4 +8,5 @@ public class GunComponent implements Component{
     public int maxAmmo;
     public boolean fire = false;
     public final Vector2 localPosition = new Vector2();
+    public final Vector2 direction = new Vector2();
 }

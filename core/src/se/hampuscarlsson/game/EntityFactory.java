@@ -80,7 +80,7 @@ public class EntityFactory {
 		return entity;
 	}
 
-	private static Texture bulletTexture = new Texture("badlogic.jpg");
+	private static Texture bulletTexture = new Texture("textures/bullet.png");
 	public static Entity createBullet(Vector2 position, Vector2 size, Vector2 velocity) {
 		Entity entity = new Entity();
 

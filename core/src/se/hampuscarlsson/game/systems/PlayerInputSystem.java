@@ -29,17 +29,22 @@ public class PlayerInputSystem extends IteratingSystem implements InputProcessor
 		float forceX = 0;
 		float forceY = 0;
 		Body physicsBody = physicsMapper.get(entity).body;
+		GunComponent gunComponent = gunMapper.get(entity);
+
 		if(leftIsPressed) {
+			gunComponent.direction.set(-1, 0);
+			gunComponent.localPosition.set(-Math.abs(gunComponent.localPosition.x), gunComponent.localPosition.y);
 			forceX -= 10;
 		}
 		if(rightIsPressed) {
+			gunComponent.direction.set(1, 0);
+			gunComponent.localPosition.set(Math.abs(gunComponent.localPosition.x), gunComponent.localPosition.y);
 			forceX += 10;
 		}
 		if(upIsPressed) {
 			forceY = 10;
 		}
 		if(spaceIsPressed) {
-			GunComponent gunComponent = gunMapper.get(entity);
 			gunComponent.fire = true;
 			spaceIsPressed = false;
 		}

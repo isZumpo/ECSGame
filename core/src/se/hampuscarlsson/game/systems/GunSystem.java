@@ -25,8 +25,7 @@ public class GunSystem extends IteratingSystem {
             gunComponent.fire = false;
             if(gunComponent.ammo > 0) {
                 TransformComponent transformComponent = transformMapper.get(entity);
-                WorldManager.engine.addEntity(EntityFactory.createBullet(transformComponent.position.add(gunComponent.localPosition), new Vector2(0.3f, 0.3f), new Vector2(10, 0)));
-                System.out.println("fire!");
+                WorldManager.engine.addEntity(EntityFactory.createBullet(transformComponent.position.cpy().add(gunComponent.localPosition), new Vector2(0.3f, 0.3f), new Vector2(25, 0).scl(gunComponent.direction)));
             }
         }
     }
