@@ -2,7 +2,6 @@ package se.hampuscarlsson.game.systems;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Vector2;
@@ -26,7 +25,7 @@ public class GunSystem extends IteratingSystem {
             gunComponent.fire = false;
             if(gunComponent.ammo > 0) {
                 TransformComponent transformComponent = transformMapper.get(entity);
-                WorldManager.engine.addEntity(EntityFactory.createBullet(transformComponent.position.add(gunComponent.localPosition), new Vector2(0.3f, 0.3f), new Vector2(200, 0)));
+                WorldManager.engine.addEntity(EntityFactory.createBullet(transformComponent.position.add(gunComponent.localPosition), new Vector2(0.3f, 0.3f), new Vector2(10, 0)));
                 System.out.println("fire!");
             }
         }

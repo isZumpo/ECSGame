@@ -93,6 +93,10 @@ public class EntityFactory {
 		textureComponent.texture = bulletTexture;
 		entity.add(textureComponent);
 
+		DespawnComponent despawnComponent = new DespawnComponent();
+		despawnComponent.timeRemaining = 5;
+		entity.add(despawnComponent);
+
 		PhysicsComponent physicsComponent = new PhysicsComponent();
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
