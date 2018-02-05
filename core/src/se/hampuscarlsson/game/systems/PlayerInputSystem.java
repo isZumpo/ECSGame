@@ -8,17 +8,20 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import se.hampuscarlsson.game.components.GunComponent;
 import se.hampuscarlsson.game.components.PhysicsComponent;
 import se.hampuscarlsson.game.components.PlayerInputComponent;
 
 public class PlayerInputSystem extends IteratingSystem implements InputProcessor{
 	private boolean leftIsPressed = false;
 	private boolean rightIsPressed = false;
-	private boolean upIspressed = false;
+	private boolean upIsPressed = false;
+	private boolean spaceIsPressed = false;
 
 	private ComponentMapper<PhysicsComponent> physicsMapper = ComponentMapper.getFor(PhysicsComponent.class);
+	private ComponentMapper<GunComponent> gunMapper = ComponentMapper.getFor(GunComponent.class);
 	public PlayerInputSystem() {
-		super(Family.all(PhysicsComponent.class, PlayerInputComponent.class).get());
+		super(Family.all(PhysicsComponent.class, PlayerInputComponent.class, GunComponent.class).get());
 	}
 
 	@Override
@@ -32,8 +35,13 @@ public class PlayerInputSystem extends IteratingSystem implements InputProcessor
 		if(rightIsPressed) {
 			forceX += 10;
 		}
-		if(upIspressed) {
+		if(upIsPressed) {
 			forceY = 10;
+		}
+		if(spaceIsPressed) {
+			GunComponent gunComponent = gunMapper.get(entity);
+			gunComponent.fire = true;
+			spaceIsPressed = false;
 		}
 
 		if(physicsBody.getLinearVelocity().y == 0) {
@@ -53,7 +61,10 @@ public class PlayerInputSystem extends IteratingSystem implements InputProcessor
 				rightIsPressed = true;
 				break;
 			case(Input.Keys.UP):
-				upIspressed = true;
+				upIsPressed = true;
+				break;
+			case(Input.Keys.SPACE):
+				spaceIsPressed = true;
 				break;
 		}
 		return false;
@@ -69,7 +80,10 @@ public class PlayerInputSystem extends IteratingSystem implements InputProcessor
 				rightIsPressed = false;
 				break;
 			case(Input.Keys.UP):
-				upIspressed = false;
+				upIsPressed = false;
+				break;
+			case(Input.Keys.SPACE):
+				spaceIsPressed = false;
 				break;
 		}
 		return false;

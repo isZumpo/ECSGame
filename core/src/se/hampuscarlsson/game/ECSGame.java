@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import se.hampuscarlsson.game.systems.GunSystem;
 import se.hampuscarlsson.game.systems.PhysicsSystem;
 import se.hampuscarlsson.game.systems.PlayerInputSystem;
 import se.hampuscarlsson.game.systems.RenderSystem;
@@ -23,7 +24,7 @@ public class ECSGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 		brick = new Texture("textures/brick.png");
-		engine = new Engine();
+		engine = WorldManager.engine;
 		world = WorldManager.world;
 
 		// Create RenderSystem
@@ -38,6 +39,10 @@ public class ECSGame extends ApplicationAdapter {
 		PlayerInputSystem playerInputSystem = new PlayerInputSystem();
 		Gdx.input.setInputProcessor(playerInputSystem);
 		engine.addSystem(playerInputSystem);
+
+		// Create GunSystem
+		GunSystem gunSystem = new GunSystem();
+		engine.addSystem(gunSystem);
 
 		// Create entity
 		engine.addEntity(EntityFactory.createPlayer(img, world, new Vector2(0, 3), new Vector2(0.8f,2f)));
