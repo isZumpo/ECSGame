@@ -1,12 +1,15 @@
 package se.hampuscarlsson.game;
 
 import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import se.hampuscarlsson.game.components.PhysicsComponent;
+import se.hampuscarlsson.game.listeners.PhysicsListener;
 import se.hampuscarlsson.game.systems.*;
 
 public class ECSGame extends ApplicationAdapter {
@@ -50,6 +53,10 @@ public class ECSGame extends ApplicationAdapter {
 
 		//Create solid
 		engine.addEntity(EntityFactory.createSolid(brick, world, new Vector2(0,1), new Vector2(40f, 1f)));
+
+		// Create PhysicsListener
+		PhysicsListener physicsListener = new PhysicsListener();
+		engine.addEntityListener(Family.one(PhysicsComponent.class).get(), physicsListener);
 
 
 	}
