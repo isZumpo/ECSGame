@@ -26,14 +26,15 @@ public class EntityFactory {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
 		bodyDef.position.set(transformComponent.position.cpy());
+		bodyDef.fixedRotation = true;
 		physicsComponent.body = world.createBody(bodyDef);
 		PolygonShape rectangle = new PolygonShape();
 		rectangle.setAsBox(size.x/2, size.y/2, size.scl(0.5f), 0);
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = rectangle;
-		fixtureDef.density = 0.1f;
+		fixtureDef.density = 1f;
 		fixtureDef.friction = 0.5f;
-		fixtureDef.restitution = 0.6f; // Make it bounce a little bit
+//		fixtureDef.restitution = 0.6f; // Make it bounce a little bit
 		Fixture fixture = physicsComponent.body.createFixture(fixtureDef);
 		rectangle.dispose();
 		entity.add(physicsComponent);
@@ -66,7 +67,7 @@ public class EntityFactory {
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = rectangle;
 		fixtureDef.density = 0.1f;
-		fixtureDef.friction = 0.5f;
+		fixtureDef.friction = 1f;
 		physicsComponent.body.createFixture(fixtureDef);
 		rectangle.dispose();
 		entity.add(physicsComponent);

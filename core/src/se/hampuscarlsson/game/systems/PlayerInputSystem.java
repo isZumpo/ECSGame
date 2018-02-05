@@ -6,12 +6,15 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import se.hampuscarlsson.game.components.PhysicsComponent;
 import se.hampuscarlsson.game.components.PlayerInputComponent;
 
 public class PlayerInputSystem extends IteratingSystem implements InputProcessor{
 	private boolean leftIsPressed = false;
 	private boolean rightIsPressed = false;
+	private boolean upIspressed = false;
 
 	private ComponentMapper<PhysicsComponent> physicsMapper = ComponentMapper.getFor(PhysicsComponent.class);
 	public PlayerInputSystem() {
@@ -20,15 +23,24 @@ public class PlayerInputSystem extends IteratingSystem implements InputProcessor
 
 	@Override
 	public void processEntity(Entity entity, float deltaTime) {
-		float force = 0;
+		float forceX = 0;
+		float forceY = 0;
+		Body physicsBody = physicsMapper.get(entity).body;
 		if(leftIsPressed) {
-			force -= 20;
+			forceX -= 10;
 		}
 		if(rightIsPressed) {
-			force += 20;
+			forceX += 10;
+		}
+		if(upIspressed) {
+			forceY = 10;
 		}
 
-		physicsMapper.get(entity).body.applyForceToCenter(force,0,true);
+		if(physicsBody.getLinearVelocity().y == 0) {
+			physicsBody.setLinearVelocity(forceX, forceY);
+		} else {
+			physicsBody.setLinearVelocity(forceX, physicsBody.getLinearVelocity().y);
+		}
 	}
 
 	@Override
@@ -39,6 +51,9 @@ public class PlayerInputSystem extends IteratingSystem implements InputProcessor
 				break;
 			case(Input.Keys.RIGHT):
 				rightIsPressed = true;
+				break;
+			case(Input.Keys.UP):
+				upIspressed = true;
 				break;
 		}
 		return false;
@@ -52,6 +67,9 @@ public class PlayerInputSystem extends IteratingSystem implements InputProcessor
 				break;
 			case(Input.Keys.RIGHT):
 				rightIsPressed = false;
+				break;
+			case(Input.Keys.UP):
+				upIspressed = false;
 				break;
 		}
 		return false;
