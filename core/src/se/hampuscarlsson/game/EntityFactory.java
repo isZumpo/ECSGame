@@ -38,7 +38,7 @@ public class EntityFactory {
 		fixtureDef.density = 1f;
 		fixtureDef.friction = 0.5f;
 //		fixtureDef.restitution = 0.6f; // Make it bounce a little bit
-		Fixture fixture = physicsComponent.body.createFixture(fixtureDef);
+		physicsComponent.body.createFixture(fixtureDef);
 		rectangle.dispose();
 		entity.add(physicsComponent);
 
@@ -110,7 +110,7 @@ public class EntityFactory {
 		fixtureDef.density = 1f;
 		fixtureDef.friction = 0.5f;
 //		fixtureDef.restitution = 0.6f; // Make it bounce a little bit
-		Fixture fixture = physicsComponent.body.createFixture(fixtureDef);
+		physicsComponent.body.createFixture(fixtureDef);
 		rectangle.dispose();
 		physicsComponent.body.setLinearVelocity(velocity);
 		entity.add(physicsComponent);
