@@ -32,7 +32,7 @@ public class RenderSystem extends IteratingSystem {
 
 		// Constructs a new OrthographicCamera, using the given viewport width and height
 		// Height is multiplied by aspect ratio.
-		camera = new OrthographicCamera(30, 30 * (h / w));
+		camera = new OrthographicCamera(20, 20 * (h / w));
 
 		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 		camera.update();

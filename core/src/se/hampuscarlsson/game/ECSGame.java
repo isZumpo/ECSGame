@@ -22,7 +22,8 @@ public class ECSGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		img = new Texture("textures/character.png");
+		img.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		brick = new Texture("textures/brick.png");
 		engine = WorldManager.engine;
 		world = WorldManager.world;
